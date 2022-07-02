@@ -1,0 +1,10 @@
+../Core/Src/freertos.c:152:6:logMovement	464	static
+../Core/Src/freertos.c:183:6:logGestures	512	static
+../Core/Src/freertos.c:301:6:MX_FREERTOS_Init	8	static
+../Core/Src/freertos.c:366:6:StartReadTask	16	static
+../Core/Src/freertos.c:390:6:StartCommandTask	144	static
+../Core/Src/freertos.c:493:6:StartSDTask	224	static
+../Core/Src/freertos.c:523:6:clickCallback	120	static
+../Core/Src/freertos.c:542:6:zoomCallback	120	static
+../Core/Src/freertos.c:562:6:moveTimerCallback	16	static
+../Core/Src/freertos.c:570:6:altTabCallback	16	static
