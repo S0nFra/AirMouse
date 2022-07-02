@@ -2,7 +2,7 @@
 FREERTOS.FootprintOK=true
 FREERTOS.IPParameters=Tasks01,FootprintOK,configUSE_NEWLIB_REENTRANT,configTIMER_TASK_PRIORITY,Timers01,Queues01,configUSE_PREEMPTION
 FREERTOS.Queues01=EventQueue,16,char,0,Dynamic,NULL,NULL
-FREERTOS.Tasks01=readTask,25,512,StartReadTask,Default,NULL,Dynamic,NULL,NULL;commandTask,24,512,StartCommandTask,Default,NULL,Dynamic,NULL,NULL;SDTask,27,512,StartSDTask,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.Tasks01=readTask,25,512,StartReadTask,Default,NULL,Dynamic,NULL,NULL;commandTask,24,512,StartCommandTask,Default,NULL,Dynamic,NULL,NULL;SDTask,26,512,StartSDTask,Default,NULL,Dynamic,NULL,NULL
 FREERTOS.Timers01=clickTimer,clickCallback,osTimerOnce,Default,NULL,Dynamic,NULL;timerZoom,zoomCallback,osTimerOnce,Default,NULL,Dynamic,NULL;moveTimer,moveTimerCallback,osTimerOnce,Default,NULL,Dynamic,NULL;altTabTimer,altTabCallback,osTimerOnce,Default,NULL,Dynamic,NULL
 FREERTOS.configTIMER_TASK_PRIORITY=55
 FREERTOS.configUSE_NEWLIB_REENTRANT=1

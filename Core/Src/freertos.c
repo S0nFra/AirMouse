@@ -100,50 +100,31 @@ int8_t logEvent = -1;
 /* USER CODE END Variables */
 /* Definitions for readTask */
 osThreadId_t readTaskHandle;
-const osThreadAttr_t readTask_attributes = {
-  .name = "readTask",
-  .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityNormal1,
-};
+const osThreadAttr_t readTask_attributes = { .name = "readTask", .stack_size =
+		512 * 4, .priority = (osPriority_t) osPriorityNormal1, };
 /* Definitions for commandTask */
 osThreadId_t commandTaskHandle;
-const osThreadAttr_t commandTask_attributes = {
-  .name = "commandTask",
-  .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
+const osThreadAttr_t commandTask_attributes = { .name = "commandTask",
+		.stack_size = 512 * 4, .priority = (osPriority_t) osPriorityNormal, };
 /* Definitions for SDTask */
 osThreadId_t SDTaskHandle;
-const osThreadAttr_t SDTask_attributes = {
-  .name = "SDTask",
-  .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityNormal3,
-};
+const osThreadAttr_t SDTask_attributes = { .name = "SDTask", .stack_size = 512
+		* 4, .priority = (osPriority_t) osPriorityNormal2, };
 /* Definitions for EventQueue */
 osMessageQueueId_t EventQueueHandle;
-const osMessageQueueAttr_t EventQueue_attributes = {
-  .name = "EventQueue"
-};
+const osMessageQueueAttr_t EventQueue_attributes = { .name = "EventQueue" };
 /* Definitions for clickTimer */
 osTimerId_t clickTimerHandle;
-const osTimerAttr_t clickTimer_attributes = {
-  .name = "clickTimer"
-};
+const osTimerAttr_t clickTimer_attributes = { .name = "clickTimer" };
 /* Definitions for timerZoom */
 osTimerId_t timerZoomHandle;
-const osTimerAttr_t timerZoom_attributes = {
-  .name = "timerZoom"
-};
+const osTimerAttr_t timerZoom_attributes = { .name = "timerZoom" };
 /* Definitions for moveTimer */
 osTimerId_t moveTimerHandle;
-const osTimerAttr_t moveTimer_attributes = {
-  .name = "moveTimer"
-};
+const osTimerAttr_t moveTimer_attributes = { .name = "moveTimer" };
 /* Definitions for altTabTimer */
 osTimerId_t altTabTimerHandle;
-const osTimerAttr_t altTabTimer_attributes = {
-  .name = "altTabTimer"
-};
+const osTimerAttr_t altTabTimer_attributes = { .name = "altTabTimer" };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -188,81 +169,18 @@ void logGestures(int event) {
 
 	if (event == 1) {
 		sprintf(eventString, "left click");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: %s\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, eventString ,mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	} else if (event == 2) {
 		sprintf(eventString, "double click");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: double click\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	} else if (event == 3) {
 		sprintf(eventString, "zoom in");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: zoom in\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	} else if (event == 4) {
 		sprintf(eventString, "zoom out");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: zoom out\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	} else if (event == 5) {
 		sprintf(eventString, "ALT+TAB");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: ALT+TAB\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	} else if (event == 6) {
 		sprintf(eventString, "ALT+TAB Switch");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: ALT+TAB Switch\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	} else if (event == 7) {
 		sprintf(eventString, "ALT+TAB Release");
-		/*sprintf(log,
-		 "[%d-%d-%d - %d:%d:%d]\tEVENT: ALT+TAB Release\t========\tAcc. Values: {T: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f || I: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f}\n",
-		 datetime.date, datetime.month, datetime.year, datetime.hours,
-		 datetime.minutes, datetime.seconds, mpu_pol.accelerometer_X,
-		 mpu_pol.accelerometer_Y, mpu_pol.accelerometer_Z,
-		 mpu_pol.gyroscope_X, mpu_pol.gyroscope_Y, mpu_pol.gyroscope_Z,
-		 mpu_ind.accelerometer_X, mpu_ind.accelerometer_Y,
-		 mpu_ind.accelerometer_Z, mpu_ind.gyroscope_X,
-		 mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);*/
 	}
 
 	sprintf(log,
@@ -294,65 +212,71 @@ void altTabCallback(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
-  */
+ * @brief  FreeRTOS initialization
+ * @param  None
+ * @retval None
+ */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+	/* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+	/* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+	/* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+	/* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+	/* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+	/* USER CODE END RTOS_SEMAPHORES */
 
-  /* Create the timer(s) */
-  /* creation of clickTimer */
-  clickTimerHandle = osTimerNew(clickCallback, osTimerOnce, NULL, &clickTimer_attributes);
+	/* Create the timer(s) */
+	/* creation of clickTimer */
+	clickTimerHandle = osTimerNew(clickCallback, osTimerOnce, NULL,
+			&clickTimer_attributes);
 
-  /* creation of timerZoom */
-  timerZoomHandle = osTimerNew(zoomCallback, osTimerOnce, NULL, &timerZoom_attributes);
+	/* creation of timerZoom */
+	timerZoomHandle = osTimerNew(zoomCallback, osTimerOnce, NULL,
+			&timerZoom_attributes);
 
-  /* creation of moveTimer */
-  moveTimerHandle = osTimerNew(moveTimerCallback, osTimerOnce, NULL, &moveTimer_attributes);
+	/* creation of moveTimer */
+	moveTimerHandle = osTimerNew(moveTimerCallback, osTimerOnce, NULL,
+			&moveTimer_attributes);
 
-  /* creation of altTabTimer */
-  altTabTimerHandle = osTimerNew(altTabCallback, osTimerOnce, NULL, &altTabTimer_attributes);
+	/* creation of altTabTimer */
+	altTabTimerHandle = osTimerNew(altTabCallback, osTimerOnce, NULL,
+			&altTabTimer_attributes);
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+	/* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+	/* USER CODE END RTOS_TIMERS */
 
-  /* Create the queue(s) */
-  /* creation of EventQueue */
-  EventQueueHandle = osMessageQueueNew (16, LOG_STRING_LEN*sizeof(char), &EventQueue_attributes);
+	/* Create the queue(s) */
+	/* creation of EventQueue */
+	EventQueueHandle = osMessageQueueNew(16, LOG_STRING_LEN * sizeof(char),
+			&EventQueue_attributes);
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+	/* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+	/* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* creation of readTask */
-  readTaskHandle = osThreadNew(StartReadTask, NULL, &readTask_attributes);
+	/* Create the thread(s) */
+	/* creation of readTask */
+	readTaskHandle = osThreadNew(StartReadTask, NULL, &readTask_attributes);
 
-  /* creation of commandTask */
-  commandTaskHandle = osThreadNew(StartCommandTask, NULL, &commandTask_attributes);
+	/* creation of commandTask */
+	commandTaskHandle = osThreadNew(StartCommandTask, NULL,
+			&commandTask_attributes);
 
-  /* creation of SDTask */
-  SDTaskHandle = osThreadNew(StartSDTask, NULL, &SDTask_attributes);
+	/* creation of SDTask */
+	SDTaskHandle = osThreadNew(StartSDTask, NULL, &SDTask_attributes);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
+	/* USER CODE END RTOS_THREADS */
 
-  /* USER CODE BEGIN RTOS_EVENTS */
+	/* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-  /* USER CODE END RTOS_EVENTS */
+	/* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -363,9 +287,8 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartReadTask */
-void StartReadTask(void *argument)
-{
-  /* USER CODE BEGIN StartReadTask */
+void StartReadTask(void *argument) {
+	/* USER CODE BEGIN StartReadTask */
 	/* Infinite loop */
 	for (;;) {
 		/* Read the values from the index hand's accelerometer */
@@ -377,7 +300,7 @@ void StartReadTask(void *argument)
 
 		osDelay(25);
 	}
-  /* USER CODE END StartReadTask */
+	/* USER CODE END StartReadTask */
 }
 
 /* USER CODE BEGIN Header_StartCommandTask */
@@ -387,40 +310,39 @@ void StartReadTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartCommandTask */
-void StartCommandTask(void *argument)
-{
-  /* USER CODE BEGIN StartCommandTask */
+void StartCommandTask(void *argument) {
+	/* USER CODE BEGIN StartCommandTask */
 
 	char command[100];
 
 	/* Infinite loop */
 	for (;;) {
-		/* */
+		/* If there are clicks, double clicks, zoom in/out, then log it */
 		if (logEvent != -1) {
 			logGestures(logEvent);
 			logEvent = -1;
 		}
-		/* */
+		/* Initial click detecting */
 		if (mpu_ind.gyroscope_X <= -240 && mpu_ind.accelerometer_Z < 0
 				&& clickFlag == 0 && ALT_TAB_flag == 0) {
 			clickFlag = 1;
-	    /* */
+			/* One click detected */
 		} else if (clickFlag == 1 && mpu_ind.gyroscope_X >= 240) {
 			numClick += 1;
 			clickFlag = 0;
 			moveFlag = 0;
 			osTimerStart(moveTimerHandle, 60);
 			osTimerStart(clickTimerHandle, 600);
-		/* */
+			/* Initial Zoom In detecting*/
 		} else if (mpu_pol.gyroscope_X <= -240 && mpu_pol.accelerometer_Z < 0
 				&& zoomFlag == 0 && ALT_TAB_flag == 0 && ALT_TAB_move == 1) {
 			zoomFlag = 1;
-		/* */
+			/* Zoom In detected */
 		} else if (zoomFlag == 1 && mpu_pol.gyroscope_X >= 240) {
 			numZoom += 1;
 			zoomFlag = 0;
 			osTimerStart(timerZoomHandle, 600);
-		/* */
+			/* Alt+Tab detected */
 		} else if (mpu_pol.gyroscope_Y >= 230 && ALT_TAB_flag == 0
 				&& zoomFlag == 0 && numZoom == 0) {
 
@@ -431,7 +353,7 @@ void StartCommandTask(void *argument)
 			ALT_TAB_flag = 1;
 			ALT_TAB_move = 0;
 			osTimerStart(altTabTimerHandle, 120);
-		/* */
+			/* Switch windows in Alt+Tab modality */
 		} else if (mpu_ind.gyroscope_X <= -240 && ALT_TAB_flag == 1
 				&& ALT_TAB_move == 1) {
 			sprintf(command,
@@ -442,7 +364,7 @@ void StartCommandTask(void *argument)
 			ALT_TAB_move = 0;
 			osTimerStart(altTabTimerHandle, 600);
 		}
-		 /* */
+		/* Release Alt+Tab modality */
 		else if (ALT_TAB_flag == 1 && mpu_pol.gyroscope_Y <= -230) {
 			sprintf(command, "xdotool keyup alt\n");
 			HAL_UART_Transmit(&huart2, (uint8_t*) command,
@@ -452,23 +374,15 @@ void StartCommandTask(void *argument)
 			ALT_TAB_move = 0;
 			osTimerStart(altTabTimerHandle, 600);
 		}
-		 /* */
+		/* Mouse Movements */
 		else if (numClick == 0 && clickFlag == 0 && moveFlag == 1
 				&& ALT_TAB_flag == 0 && zoomFlag == 0 && numZoom == 0
 				&& ALT_TAB_move == 1) {
 
 			int m_x = (-(int) mpu_ind.accelerometer_X) * 3;
 			int m_y = -((int) mpu_ind.accelerometer_Y) * 2;
-
-			if (m_x == 0 && m_y >= 10) {
-				sprintf(command, "xdotool mousemove_relative -- %d %d\n", m_x,
-						m_y);
-				HAL_UART_Transmit(&huart2, (uint8_t*) command,
-						sizeof(char) * strlen(command), HAL_MAX_DELAY);
-				logMovement(m_x, m_y);
-			}
-			 /* */
-			else if (fabs(m_x) + fabs(m_y) >= 10) {
+			/* Mouse Movements */
+			if (fabs(m_x) + fabs(m_y) >= 10) {
 
 				sprintf(command, "xdotool mousemove_relative -- %d %d\n", m_x,
 						m_y);
@@ -480,7 +394,7 @@ void StartCommandTask(void *argument)
 
 		osDelay(25);
 	}
-  /* USER CODE END StartCommandTask */
+	/* USER CODE END StartCommandTask */
 }
 
 /* USER CODE BEGIN Header_StartSDTask */
@@ -490,9 +404,8 @@ void StartCommandTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartSDTask */
-void StartSDTask(void *argument)
-{
-  /* USER CODE BEGIN StartSDTask */
+void StartSDTask(void *argument) {
+	/* USER CODE BEGIN StartSDTask */
 	/* Infinite loop */
 	for (;;) {
 		char buffer[LOG_STRING_LEN];
@@ -516,13 +429,12 @@ void StartSDTask(void *argument)
 
 		osDelay(100);
 	}
-  /* USER CODE END StartSDTask */
+	/* USER CODE END StartSDTask */
 }
 
 /* clickCallback function */
-void clickCallback(void *argument)
-{
-  /* USER CODE BEGIN clickCallback */
+void clickCallback(void *argument) {
+	/* USER CODE BEGIN clickCallback */
 	char value[100];
 	if (numClick >= 2) {
 		sprintf(value, "xdotool click --repeat 2 1\n");
@@ -535,13 +447,12 @@ void clickCallback(void *argument)
 	logEvent = numClick;
 	numClick = 0;
 
-  /* USER CODE END clickCallback */
+	/* USER CODE END clickCallback */
 }
 
 /* zoomCallback function */
-void zoomCallback(void *argument)
-{
-  /* USER CODE BEGIN zoomCallback */
+void zoomCallback(void *argument) {
+	/* USER CODE BEGIN zoomCallback */
 	char value[100];
 
 	if (numZoom >= 2) {
@@ -555,23 +466,21 @@ void zoomCallback(void *argument)
 	HAL_MAX_DELAY);
 
 	numZoom = 0;
-  /* USER CODE END zoomCallback */
+	/* USER CODE END zoomCallback */
 }
 
 /* moveTimerCallback function */
-void moveTimerCallback(void *argument)
-{
-  /* USER CODE BEGIN moveTimerCallback */
+void moveTimerCallback(void *argument) {
+	/* USER CODE BEGIN moveTimerCallback */
 	moveFlag = 1;
-  /* USER CODE END moveTimerCallback */
+	/* USER CODE END moveTimerCallback */
 }
 
 /* altTabCallback function */
-void altTabCallback(void *argument)
-{
-  /* USER CODE BEGIN altTabCallback */
+void altTabCallback(void *argument) {
+	/* USER CODE BEGIN altTabCallback */
 	ALT_TAB_move = 1;
-  /* USER CODE END altTabCallback */
+	/* USER CODE END altTabCallback */
 }
 
 /* Private application code --------------------------------------------------*/
