@@ -66,7 +66,7 @@ extern UINT br, bw;  // File read/write count
 /* ALT_TAB_flag is 1 when we are in ALT+TAB modality (vertical hand), 0 otherwise. It is used
  * when we want to know if we are in ALT+TAB mode or not. */
 uint8_t ALT_TAB_flag = 0;
-/* ALT_TAB_move is 1 even, except when we pass from ALT+TAB mode to normal mode. It is used
+/* ALT_TAB_move is always 1, except when we pass from ALT+TAB mode to normal mode. It is used
  * when we don't want to move our mouse when we pass from ALT+TAB mode to normal mode. */
 uint8_t ALT_TAB_move = 1;
 
