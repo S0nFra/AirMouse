@@ -1,5 +1,6 @@
 # Air Mouse - Fingers
 
+![IMG_5269 HEIC](https://user-images.githubusercontent.com/94001472/177040157-737f1778-3771-4cc7-83c8-f245cec48298.jpg)
 
 
 ## Project
@@ -14,7 +15,6 @@ Using the accelerometers placed on the fingers, it is possible to interpret hand
 Furthermore, all commands performed with the mouse are recorded in a text file saved on a Micro SD card.
 
 
-
 ## Protocols and Interfaces
 | Interfaces |                                                              |
 | ---------- | ------------------------------------------------------------ |
@@ -27,7 +27,15 @@ Furthermore, all commands performed with the mouse are recorded in a text file s
 
 - **ON** for “System ready” 
 - **OFF** for “System un-ready”
+## Software Architecture
 
+![Architettura](https://user-images.githubusercontent.com/94001472/177040407-05c53b63-4f33-445c-80c6-68bcac26c0b9.png)
+
+
+## Fritzing Scheme
+![air mouse_bb](https://user-images.githubusercontent.com/94001472/177040185-c93f2e46-fbfe-44fa-a87f-c8d41847ac4d.png)
+
+## Sotware Protocol: MCU - PC interaction
 The interaction with the computer takes place via the serial port. The commands sent via serial are interpreted by the xdotool software available on Linux systems. The used commands are:
 
 | Actions          | Commands                                                |
@@ -43,18 +51,9 @@ The interaction with the computer takes place via the serial port. The commands 
 
 
 
-## Gestures
-
-<p align="center">|<img src="D:\OneDrive - Università di Salerno\UNISA\Magistrale\Secondo semestre\Sistemi Embedded\Project SE\Report & Presentation\Report\Documentation Figures\Figures\Figure 2\1 edited.jpg" alt="1 edited" style="width:300px;" />| <img src="D:\OneDrive - Università di Salerno\UNISA\Magistrale\Secondo semestre\Sistemi Embedded\Project SE\Report & Presentation\Report\Documentation Figures\Figures\Figure 2\2 edited.jpg" alt="2 edited" style="width:300px;" />|</p>
-
-<p align="center"><i>movement to the right</i></p>
-
-
-
 ## Video Tutorial
 
 You can find a tutorial of how it works [here](https://www.youtube.com/watch?v=9bjMumtYkMI)
-
 
 
 ## Authors
@@ -69,8 +68,12 @@ Francesco Sonnessa: [@s0nFra](https://github.com/s0nFra)
 
 
 ## How to Run
-It's necessary to clone the repository in the STM32ClubeIDE and run the project.
+It's necessary to clone the repository in the STM32CubeIDE and run the project.
+On PC side, you can run the command executor with the following commang: `sudo ./commandScript.sh`. After that, the commands received from the serial port are executed (note that in the script the default serial port is /dev/ttyACM0 , you can modify it by inserting the correct serial port detected in your PC for STM32). 
 
+You can also execute the mouse commands by opening a Linux terminal and executing the following commands:
+1.	`sudo bash`
+2.	`exec<>/dev/ttyACM0`
 
 
 
