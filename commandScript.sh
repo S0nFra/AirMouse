@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Course: SISTEMI EMBEDDED 2021/2022
+# Course: Embedded Systems 2021/2022
 #   
 # Lecturer: Francesco Moscato	fmoscato@unisa.it
 #  
@@ -9,7 +9,7 @@
 # Ranieri Speranza		0622701687	s.ranieri4@studenti.unisa.it
 # Mancusi Ernesto		0622701668	e.mancusi2@studenti.unisa.it
 # Parrella Giuseppe		0622701665	g.parrella9@studenti.unisa.it
-# Sonnessa Francesco	0622701672	f.sonnessa@studenti.unisa.it
+# Sonnessa Francesco		0622701672	f.sonnessa@studenti.unisa.it
 # 
 # Copyright (C) 2022 - All Rights Reserved
 # This file is part of AirMouse.
