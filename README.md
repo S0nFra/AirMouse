@@ -75,6 +75,7 @@ You can also execute the mouse commands by opening a Linux terminal and executin
 1.	`sudo bash`
 2.	`exec<>/dev/ttyACM0`
 
+note: if ACM0 does not work, try with ACM1, ACM2, ...
 
 
 ## Who can contribute to this project?
