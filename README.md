@@ -33,7 +33,8 @@ Furthermore, all commands performed with the mouse are recorded in a text file s
 
 
 ## Fritzing Scheme
-![air mouse_bb](https://user-images.githubusercontent.com/94001472/177040185-c93f2e46-fbfe-44fa-a87f-c8d41847ac4d.png)
+![schema fritzing con PC](https://user-images.githubusercontent.com/94001526/177048642-af9b111b-109f-437b-9b57-56150dd4d2c1.png)
+
 
 ## Sotware Protocol: MCU - PC interaction
 The interaction with the computer takes place via the serial port. The commands sent via serial are interpreted by the xdotool software available on Linux systems. The used commands are:
