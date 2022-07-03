@@ -26,7 +26,7 @@ Furthermore, all commands performed with the mouse are recorded in a text file s
 **On board LED:** Visual indicator of the system status:
 
 - **ON** for “System ready” 
-- **OFF** for “System un-ready”
+- **OFF** for “System not ready”
 ## Software Architecture
 
 ![Architettura](https://user-images.githubusercontent.com/94001472/177040407-05c53b63-4f33-445c-80c6-68bcac26c0b9.png)
