@@ -122,11 +122,11 @@ int main(void)
 	while (MPU6050_Init(&hi2c1, &mpu_pol, MPU6050_Device_1,
 			MPU6050_Accelerometer_16G, MPU6050_Gyroscope_250s)
 			!= MPU6050_Result_Ok);
-	/* Get the current time from RTC and create a log file named as "mm-yy.TXT" */
+	/* Get the current time from RTC and create a log file named as "dd_mm_yy.TXT" */
 	date_time_t datetime;
 	rtc_get_date_time(&datetime);
 	char filename[50];
-	sprintf(filename, "%d_%d_%d.TXT", datetime.date, datetime.month,datetime.year);
+	sprintf(filename, "%d_%d_%d.TXT", datetime.date, datetime.month, datetime.year);
 	while (Create_File(filename) != FR_OK);
 	/* Open the file created for command log on SD card */
 	while (f_open(&fil, filename, FA_OPEN_APPEND | FA_WRITE) != FR_OK) {
