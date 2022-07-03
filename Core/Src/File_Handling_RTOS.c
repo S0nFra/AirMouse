@@ -32,8 +32,8 @@
 #include "stm32f4xx_hal.h"
 
 
-extern UART_HandleTypeDef huart2;
-#define UART &huart2
+extern USART_HandleTypeDef husart2;
+#define UART &husart2
 
 
 

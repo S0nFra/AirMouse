@@ -54,8 +54,8 @@
 extern MPU6050 mpu_ind;
 extern MPU6050 mpu_pol;
 
-/* Extern variables for I2C and UART ports */
-extern UART_HandleTypeDef huart2;
+/* Extern variables for I2C and USART ports */
+extern USART_HandleTypeDef husart2;
 extern I2C_HandleTypeDef hi2c1;
 
 /* Useful variables for file management declared in File_Handling_RTOS.c */
@@ -100,31 +100,50 @@ int8_t logEvent = -1;
 /* USER CODE END Variables */
 /* Definitions for readTask */
 osThreadId_t readTaskHandle;
-const osThreadAttr_t readTask_attributes = { .name = "readTask", .stack_size =
-		512 * 4, .priority = (osPriority_t) osPriorityNormal1, };
+const osThreadAttr_t readTask_attributes = {
+  .name = "readTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal1,
+};
 /* Definitions for commandTask */
 osThreadId_t commandTaskHandle;
-const osThreadAttr_t commandTask_attributes = { .name = "commandTask",
-		.stack_size = 512 * 4, .priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t commandTask_attributes = {
+  .name = "commandTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for SDTask */
 osThreadId_t SDTaskHandle;
-const osThreadAttr_t SDTask_attributes = { .name = "SDTask", .stack_size = 512
-		* 4, .priority = (osPriority_t) osPriorityNormal2, };
+const osThreadAttr_t SDTask_attributes = {
+  .name = "SDTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal2,
+};
 /* Definitions for EventQueue */
 osMessageQueueId_t EventQueueHandle;
-const osMessageQueueAttr_t EventQueue_attributes = { .name = "EventQueue" };
+const osMessageQueueAttr_t EventQueue_attributes = {
+  .name = "EventQueue"
+};
 /* Definitions for clickTimer */
 osTimerId_t clickTimerHandle;
-const osTimerAttr_t clickTimer_attributes = { .name = "clickTimer" };
+const osTimerAttr_t clickTimer_attributes = {
+  .name = "clickTimer"
+};
 /* Definitions for timerZoom */
 osTimerId_t timerZoomHandle;
-const osTimerAttr_t timerZoom_attributes = { .name = "timerZoom" };
+const osTimerAttr_t timerZoom_attributes = {
+  .name = "timerZoom"
+};
 /* Definitions for moveTimer */
 osTimerId_t moveTimerHandle;
-const osTimerAttr_t moveTimer_attributes = { .name = "moveTimer" };
+const osTimerAttr_t moveTimer_attributes = {
+  .name = "moveTimer"
+};
 /* Definitions for altTabTimer */
 osTimerId_t altTabTimerHandle;
-const osTimerAttr_t altTabTimer_attributes = { .name = "altTabTimer" };
+const osTimerAttr_t altTabTimer_attributes = {
+  .name = "altTabTimer"
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -146,7 +165,7 @@ void logMovement(int x, int y) {
 			mpu_ind.gyroscope_Z);
 	/* Insert the string into the queue */
 	if (osMessageQueuePut(EventQueueHandle, (void*) &log, 0U, 0U) != osOK) {
-		HAL_UART_Transmit(&huart2, (uint8_t*) "QUEUE INSERT ERROR\n",
+		HAL_USART_Transmit(&husart2, (uint8_t*) "QUEUE INSERT ERROR\n",
 				sizeof(char) * strlen("QUEUE INSERT ERROR\n"), HAL_MAX_DELAY);
 	}
 }
@@ -194,7 +213,7 @@ void logGestures(int event) {
 			mpu_ind.gyroscope_X, mpu_ind.gyroscope_Y, mpu_ind.gyroscope_Z);
 	/* Insert the log string into the Queue */
 	if (osMessageQueuePut(EventQueueHandle, (void*) &log, 0U, 0U) != osOK) {
-		HAL_UART_Transmit(&huart2, (uint8_t*) "QUEUE INSERT ERROR\n",
+		HAL_USART_Transmit(&husart2, (uint8_t*) "QUEUE INSERT ERROR\n",
 				sizeof(char) * strlen("QUEUE INSERT ERROR\n"), HAL_MAX_DELAY);
 	}
 
@@ -212,71 +231,65 @@ void altTabCallback(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
 void MX_FREERTOS_Init(void) {
-	/* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* Create the timer(s) */
-	/* creation of clickTimer */
-	clickTimerHandle = osTimerNew(clickCallback, osTimerOnce, NULL,
-			&clickTimer_attributes);
+  /* Create the timer(s) */
+  /* creation of clickTimer */
+  clickTimerHandle = osTimerNew(clickCallback, osTimerOnce, NULL, &clickTimer_attributes);
 
-	/* creation of timerZoom */
-	timerZoomHandle = osTimerNew(zoomCallback, osTimerOnce, NULL,
-			&timerZoom_attributes);
+  /* creation of timerZoom */
+  timerZoomHandle = osTimerNew(zoomCallback, osTimerOnce, NULL, &timerZoom_attributes);
 
-	/* creation of moveTimer */
-	moveTimerHandle = osTimerNew(moveTimerCallback, osTimerOnce, NULL,
-			&moveTimer_attributes);
+  /* creation of moveTimer */
+  moveTimerHandle = osTimerNew(moveTimerCallback, osTimerOnce, NULL, &moveTimer_attributes);
 
-	/* creation of altTabTimer */
-	altTabTimerHandle = osTimerNew(altTabCallback, osTimerOnce, NULL,
-			&altTabTimer_attributes);
+  /* creation of altTabTimer */
+  altTabTimerHandle = osTimerNew(altTabCallback, osTimerOnce, NULL, &altTabTimer_attributes);
 
-	/* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* Create the queue(s) */
-	/* creation of EventQueue */
-	EventQueueHandle = osMessageQueueNew(16, LOG_STRING_LEN * sizeof(char),
-			&EventQueue_attributes);
+  /* Create the queue(s) */
+  /* creation of EventQueue */
+  EventQueueHandle = osMessageQueueNew (16,LOG_STRING_LEN* sizeof(char), &EventQueue_attributes);
 
-	/* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* creation of readTask */
-	readTaskHandle = osThreadNew(StartReadTask, NULL, &readTask_attributes);
+  /* Create the thread(s) */
+  /* creation of readTask */
+  readTaskHandle = osThreadNew(StartReadTask, NULL, &readTask_attributes);
 
-	/* creation of commandTask */
-	commandTaskHandle = osThreadNew(StartCommandTask, NULL,
-			&commandTask_attributes);
+  /* creation of commandTask */
+  commandTaskHandle = osThreadNew(StartCommandTask, NULL, &commandTask_attributes);
 
-	/* creation of SDTask */
-	SDTaskHandle = osThreadNew(StartSDTask, NULL, &SDTask_attributes);
+  /* creation of SDTask */
+  SDTaskHandle = osThreadNew(StartSDTask, NULL, &SDTask_attributes);
 
-	/* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
-	/* USER CODE BEGIN RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-	/* USER CODE END RTOS_EVENTS */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -287,8 +300,9 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartReadTask */
-void StartReadTask(void *argument) {
-	/* USER CODE BEGIN StartReadTask */
+void StartReadTask(void *argument)
+{
+  /* USER CODE BEGIN StartReadTask */
 	/* Infinite loop */
 	for (;;) {
 		/* Read the values from the index hand's accelerometer */
@@ -300,7 +314,7 @@ void StartReadTask(void *argument) {
 
 		osDelay(25);
 	}
-	/* USER CODE END StartReadTask */
+  /* USER CODE END StartReadTask */
 }
 
 /* USER CODE BEGIN Header_StartCommandTask */
@@ -310,8 +324,9 @@ void StartReadTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartCommandTask */
-void StartCommandTask(void *argument) {
-	/* USER CODE BEGIN StartCommandTask */
+void StartCommandTask(void *argument)
+{
+  /* USER CODE BEGIN StartCommandTask */
 
 	char command[100];
 
@@ -347,7 +362,7 @@ void StartCommandTask(void *argument) {
 				&& zoomFlag == 0 && numZoom == 0) {
 
 			sprintf(command, "xdotool keydown alt key Tab\n");
-			HAL_UART_Transmit(&huart2, (uint8_t*) command,
+			HAL_USART_Transmit(&husart2, (uint8_t*) command,
 					sizeof(char) * strlen(command), HAL_MAX_DELAY);
 			logGestures(5);
 			ALT_TAB_flag = 1;
@@ -358,7 +373,7 @@ void StartCommandTask(void *argument) {
 				&& ALT_TAB_move == 1) {
 			sprintf(command,
 					"xdotool keydown Tab && sleep 0.1 && xdotool keyup Tab\n");
-			HAL_UART_Transmit(&huart2, (uint8_t*) command,
+			HAL_USART_Transmit(&husart2, (uint8_t*) command,
 					sizeof(char) * strlen(command), HAL_MAX_DELAY);
 			logGestures(6);
 			ALT_TAB_move = 0;
@@ -367,7 +382,7 @@ void StartCommandTask(void *argument) {
 		/* Release Alt+Tab modality */
 		else if (ALT_TAB_flag == 1 && mpu_pol.gyroscope_Y <= -230) {
 			sprintf(command, "xdotool keyup alt\n");
-			HAL_UART_Transmit(&huart2, (uint8_t*) command,
+			HAL_USART_Transmit(&husart2, (uint8_t*) command,
 					sizeof(char) * strlen(command), HAL_MAX_DELAY);
 			logGestures(7);
 			ALT_TAB_flag = 0;
@@ -386,7 +401,7 @@ void StartCommandTask(void *argument) {
 
 				sprintf(command, "xdotool mousemove_relative -- %d %d\n", m_x,
 						m_y);
-				HAL_UART_Transmit(&huart2, (uint8_t*) command,
+				HAL_USART_Transmit(&husart2, (uint8_t*) command,
 						sizeof(char) * strlen(command), HAL_MAX_DELAY);
 				logMovement(m_x, m_y);
 			}
@@ -394,7 +409,7 @@ void StartCommandTask(void *argument) {
 
 		osDelay(25);
 	}
-	/* USER CODE END StartCommandTask */
+  /* USER CODE END StartCommandTask */
 }
 
 /* USER CODE BEGIN Header_StartSDTask */
@@ -404,8 +419,9 @@ void StartCommandTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartSDTask */
-void StartSDTask(void *argument) {
-	/* USER CODE BEGIN StartSDTask */
+void StartSDTask(void *argument)
+{
+  /* USER CODE BEGIN StartSDTask */
 	/* Infinite loop */
 	for (;;) {
 		char buffer[LOG_STRING_LEN];
@@ -415,7 +431,7 @@ void StartSDTask(void *argument) {
 					== osOK) {
 				/* Writing text */
 				if (f_write(&fil, buffer, strlen(buffer), &bw) != FR_OK) {
-					HAL_UART_Transmit(&huart2,
+					HAL_USART_Transmit(&husart2,
 							(uint8_t*) "ERROR IN WRITING FILE\n",
 							sizeof(char) * strlen("ERROR IN WRITING FILE\n"),
 							HAL_MAX_DELAY);
@@ -429,12 +445,13 @@ void StartSDTask(void *argument) {
 
 		osDelay(100);
 	}
-	/* USER CODE END StartSDTask */
+  /* USER CODE END StartSDTask */
 }
 
 /* clickCallback function */
-void clickCallback(void *argument) {
-	/* USER CODE BEGIN clickCallback */
+void clickCallback(void *argument)
+{
+  /* USER CODE BEGIN clickCallback */
 	char value[100];
 	if (numClick >= 2) {
 		sprintf(value, "xdotool click --repeat 2 1\n");
@@ -442,17 +459,18 @@ void clickCallback(void *argument) {
 	} else if (numClick == 1) {
 		sprintf(value, "xdotool click 1\n");
 	}
-	HAL_UART_Transmit(&huart2, (uint8_t*) value, sizeof(char) * strlen(value),
+	HAL_USART_Transmit(&husart2, (uint8_t*) value, sizeof(char) * strlen(value),
 	HAL_MAX_DELAY);
 	logEvent = numClick;
 	numClick = 0;
 
-	/* USER CODE END clickCallback */
+  /* USER CODE END clickCallback */
 }
 
 /* zoomCallback function */
-void zoomCallback(void *argument) {
-	/* USER CODE BEGIN zoomCallback */
+void zoomCallback(void *argument)
+{
+  /* USER CODE BEGIN zoomCallback */
 	char value[100];
 
 	if (numZoom >= 2) {
@@ -462,25 +480,27 @@ void zoomCallback(void *argument) {
 		sprintf(value, "xdotool key Ctrl+plus\n");
 		logEvent = 3;
 	}
-	HAL_UART_Transmit(&huart2, (uint8_t*) value, sizeof(char) * strlen(value),
+	HAL_USART_Transmit(&husart2, (uint8_t*) value, sizeof(char) * strlen(value),
 	HAL_MAX_DELAY);
 
 	numZoom = 0;
-	/* USER CODE END zoomCallback */
+  /* USER CODE END zoomCallback */
 }
 
 /* moveTimerCallback function */
-void moveTimerCallback(void *argument) {
-	/* USER CODE BEGIN moveTimerCallback */
+void moveTimerCallback(void *argument)
+{
+  /* USER CODE BEGIN moveTimerCallback */
 	moveFlag = 1;
-	/* USER CODE END moveTimerCallback */
+  /* USER CODE END moveTimerCallback */
 }
 
 /* altTabCallback function */
-void altTabCallback(void *argument) {
-	/* USER CODE BEGIN altTabCallback */
+void altTabCallback(void *argument)
+{
+  /* USER CODE BEGIN altTabCallback */
 	ALT_TAB_move = 1;
-	/* USER CODE END altTabCallback */
+  /* USER CODE END altTabCallback */
 }
 
 /* Private application code --------------------------------------------------*/

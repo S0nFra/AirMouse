@@ -22,7 +22,6 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "File_Handling_RTOS.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,9 +41,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern FIL fil; // File
-extern UINT br, bw;  // File read/write count
-extern UART_HandleTypeDef huart2;
+
 
 /* USER CODE END PV */
 
@@ -193,26 +190,4 @@ FatFsCnt++;
 }
 
 /* USER CODE BEGIN 1 */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  if(GPIO_Pin == GPIO_PIN_13)
-  {
-	  HAL_UART_Transmit(&huart2, (uint8_t*) "Interrupt start\n", sizeof(char) * strlen("Interrupt start\n"),
-	  	    			HAL_MAX_DELAY);
-    /* Toggle LED1 */
-		if(f_close(&fil)!= FR_OK){
-	    	HAL_UART_Transmit(&huart2, (uint8_t*) "ERROR IN CLOSING FILE\n", sizeof(char) * strlen("ERROR IN CLOSING FILE\n"),
-	    			HAL_MAX_DELAY);
-		}
-		if (f_open(&fil, "log.txt", FA_OPEN_APPEND | FA_WRITE) != FR_OK){
-							char buf[50];
-							sprintf (buf, "ERROR!!! *%s* does not exists\n\n",  "log.txt");
-					    	HAL_UART_Transmit(&huart2, (uint8_t*) buf, sizeof(char) * strlen(buf),
-					    			HAL_MAX_DELAY);
-		}
-
-		  HAL_UART_Transmit(&huart2, (uint8_t*) "Interrupt end\n", sizeof(char) * strlen("Interrupt end\n"),
-		  	    			HAL_MAX_DELAY);
-  }
-}
 /* USER CODE END 1 */

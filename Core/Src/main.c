@@ -102,7 +102,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_USART2_UART_Init();
+  MX_USART2_Init();
   MX_I2C2_Init();
   MX_SPI3_Init();
   MX_FATFS_Init();
@@ -132,7 +132,7 @@ int main(void)
 	while (f_open(&fil, filename, FA_OPEN_APPEND | FA_WRITE) != FR_OK) {
 		char buf[60];
 		sprintf(buf, "ERROR!!! *%s* does not exists\n\n", filename);
-		HAL_UART_Transmit(&huart2, (uint8_t*) buf, sizeof(char) * strlen(buf),
+		HAL_USART_Transmit(&husart2, (uint8_t*) buf, sizeof(char) * strlen(buf),
 		HAL_MAX_DELAY);
 	}
 	/* Turn on the pin on MCU in order to nofity the correct end of the inizialization phase */
