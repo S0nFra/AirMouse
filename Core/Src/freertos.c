@@ -75,8 +75,8 @@ uint8_t ALT_TAB_move = 1;
 uint8_t numClick = 0;
 /* clickFlag is 1 when we are in click phase and we don't want to move our mouse, 0 otherwise. */
 uint8_t clickFlag = 0;
-/* moveFlag is 1 when we have already detected 1 click, and we don't want to move our mouse
- * because there are a chance for a double click */
+/* moveFlag is 1 when we have already detected 1 click and we don't want to move our mouse
+ * because there is a chance for a double click */
 uint8_t moveFlag = 1;
 
 /******** ZOOM ********/
@@ -85,16 +85,16 @@ uint8_t numZoom = 0;
 /* zoomFlag is 1 when we are in zoom phase and we don't want to move our mouse, 0 otherwise. */
 uint8_t zoomFlag = 0;
 
-/* This variables is setted by the click and zoom callback to log click, double click, zoom in and
+/* This variables is setted by the click and zoom callbacks to log click, double click, zoom in and
  * zoom out.
- * logEvent=1 --> log a click,
- * logEvent=2 --> log a double click,
- * logEvent=3 --> log a zoom in,
+ * logEvent=1 --> log a click
+ * logEvent=2 --> log a double click
+ * logEvent=3 --> log a zoom in
  * logEvent=4 --> log a zoom out
  * */
 int8_t logEvent = -1;
 
-/* Log's string length*/
+/* Log's string length */
 #define LOG_STRING_LEN 200
 
 /* USER CODE END Variables */
@@ -171,7 +171,7 @@ void logMovement(int x, int y) {
 }
 
 /*
- * This function is used to log a gesture codified with event parameter according to the values:
+ * This function is used to log a gesture codified with an event parameter according to the values:
  * 1 -> left click
  * 2 -> double click
  * 3 -> zoom in
@@ -348,7 +348,7 @@ void StartCommandTask(void *argument)
 			moveFlag = 0;
 			osTimerStart(moveTimerHandle, 60);
 			osTimerStart(clickTimerHandle, 600);
-			/* Initial Zoom In detecting*/
+			/* Initial Zoom In detecting */
 		} else if (mpu_pol.gyroscope_X <= -240 && mpu_pol.accelerometer_Z < 0
 				&& zoomFlag == 0 && ALT_TAB_flag == 0 && ALT_TAB_move == 1) {
 			zoomFlag = 1;
