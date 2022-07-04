@@ -267,7 +267,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of EventQueue */
-  EventQueueHandle = osMessageQueueNew (16,LOG_STRING_LEN* sizeof(char), &EventQueue_attributes);
+  EventQueueHandle = osMessageQueueNew (16, sizeof(char)* LOG_STRING_LEN
+		  , &EventQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
